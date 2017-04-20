@@ -1,11 +1,10 @@
-//at the moment this file is being used for menus and interfacing
+//This file contains important interfaces/views for selling tickets
 import java.util.Scanner;
 import java.sql.*;
 import java.io.*;
 
 class ticket{
 	Scanner scan = new Scanner(System.in);
-
 	int get_age(){
 		char select = '1';
 		while(select != '1' && select != '2' && select != '3' && select != '4'){
