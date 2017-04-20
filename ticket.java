@@ -4,16 +4,18 @@ import java.sql.*;
 import java.io.*;
 
 class ticket{
-	Scanner scan = new Scanner(System.in);
+	char select = 'r';
+	static Scanner scan = new Scanner(System.in);
 	int get_age(){
-		char select = '1';
+		char select = 'r';
+		System.out.println("Please specify the age range of the patron.");
 		while(select != '1' && select != '2' && select != '3' && select != '4'){
 			System.out.println("(1) Infant - Less than 2 years old");
 			System.out.println("(2) Child - Between 2 and 11 years");
 			System.out.println("(3) Adult - Between 12 and 59 years");
 			System.out.println("(4) Senior - 60 or older");
 			System.out.printf("Select input>: ");
-			select = scan.next().trim().charAt(0);
+			select = scan.next().charAt(0);
 		}
 		switch(select){
 			case '1':
@@ -46,7 +48,7 @@ class ticket{
 			System.out.println("(H) Help - View more info of what's included in tickets");
 			System.out.println("(Q) Quit");
 			System.out.printf("Select input>: ");
-			char select = scan.next().trim().charAt(0);
+			select = scan.next().charAt(0);
 
 			switch(view){
 				case '1':
@@ -109,9 +111,10 @@ class ticket{
 			System.out.println("(5) Elephant Ride - $9");
 			System.out.println("(Q) Quit");
 			System.out.printf("Select input>: ");
-			char select = scan.next().trim().charAt(0);
+			select = scan.next().charAt(0);
+			System.out.println(select);
 
-			switch(view){
+			switch(select){
 				case ('1'):
 				case ('2'):
 					price = 3;

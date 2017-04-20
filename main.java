@@ -1,8 +1,10 @@
+
 import java.io.*;
 import java.sql.*;
 import java.util.Scanner;
 
-class ticketSeller{
+class main{
+	static Scanner in = new Scanner(System.in);
 	public static void main(String args[])
 		//load driver
 		throws SQLException, IOException{
@@ -19,18 +21,19 @@ class ticketSeller{
 		Connection conn = DriverManager.getConnection ("jdbc:oracle:thin:@deuce.cs.ohiou.edu:1521:class", user, pass);
 		Statement stmt = conn.createStatement();
 
-		q = "select distinct SSN, Salary, BDate, Department from employee where SSN like '%";
+		q = "select distinct SSN, Salary, EBDay, Department from employee where SSN like '%";
 		q += readEntry("Please enter the last 5 digits of your social security number>: ");
 		q += "'";
 		ResultSet rset = stmt.executeQuery(q);
 		int recCount = 0;
+		String department = "null";
 		while(rset.next()){
+			department = rset.getString(4);
 			recCount++;
 		}
-		if(recCount > 1){ //making sure the 5 digits are unique, else ask to consult supervisor or admin
-			System.out.println("Unique abbreviation error, please contact an administrator");
+		if(recCount > 1 || recCount == 0){ //making sure the 5 digits are unique, else ask to consult supervisor or admin
+			System.out.println("Try again or contact an administrator: Unique abbreviation error");
 		}else{
-			String department = rset.getString(4);
 			char view = 'r'; //dummy value
 			int gid;
 			ticket tick = new ticket();
@@ -45,20 +48,19 @@ class ticketSeller{
 					if(view == '1'){
 						FileOutputStream output = new FileOutputStream("gid.txt", false);
 						Scanner scan = new Scanner(new File("gid.txt"));
-						if(department == "Fun and Guest Services"){ //if department of guest services, the ticket will be new. I import from a file as prototype
+						if(department == "Fun and Guest Experience"){ //if department of guest experience, the ticket will be new. I import from a file as prototype
 							view = 'f';
+							int age = tick.get_age();
+						double price = tick.get_price(view,age);
 							gid = scan.nextInt();
 							output.write(gid+1);
 						}else{ //customer already has an entry ticket. load the ride onto it
 							view = 'a';
+							int age = tick.get_age();
+							double price = tick.get_price(view,age);
 							System.out.print("Enter guest ID>: ");
-							gid = System.in.read();
+							gid = in.nextInt();
 						}
-						System.out.print("Welcome to the "+ department + " ticket selling interface.\n");
-						System.out.println("What is the age range of the patron?");
-						int age = tick.get_age();
-						System.out.println("Specify pricing");
-						double price = tick.get_price(view,age);
 					}
 				}
 			}
