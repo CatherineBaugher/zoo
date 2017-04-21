@@ -4,7 +4,6 @@ import java.sql.*;
 import java.io.*;
 
 class ticket{
-	char select = 'r';
 	static Scanner scan = new Scanner(System.in);
 	int get_age(){
 		char select = 'r';
@@ -32,10 +31,10 @@ class ticket{
 		}
 	}
 	double get_price(char view, int age){
+		char select = 'r';
 		double price = 0;
 		if (age == 0) //note that infants (age < 2 years, signified in this DB by "0") are free no matter the ticket	
 			return 0;
-
 		if(view == 'f'){ //'f' signifies Department of Fun & Guest Experience -- this will be an entry ticket or single ride ticket
 			System.out.println("=-=:=-=:=-=:  Entry Ticket  :=-=:=-=:=-=");
 			System.out.println("(1) Zoo Adventure Ticket - $28 Adult, $21 Child/Sr");
@@ -50,7 +49,7 @@ class ticket{
 			System.out.printf("Select input>: ");
 			select = scan.next().charAt(0);
 
-			switch(view){
+			switch(select){
 				case '1':
 					if(age == 12)
 						price = 28;

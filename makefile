@@ -6,6 +6,7 @@ JC = javac
 
 CLASSES = \
 	ticket.java \
+	admin.java \
 	main.java
 
 default: classes
